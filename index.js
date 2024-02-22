@@ -15,7 +15,7 @@ const render = require("./src/page-template.js");
 
 const teamMembers = [];
 
-const addManager = () => {
+const addManager = () => { //Gets Manager's Information
     inquirer.prompt([
         {
             type: "input",
@@ -40,8 +40,8 @@ const addManager = () => {
     ])
     
     .then((answers) => {
-        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
-        teamMembers.push(manager);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber); 
+        teamMembers.push(manager); //pushes manager into teamMembers array
         addTeamMember();
     })
 }
@@ -55,4 +55,38 @@ const addTeamMember = () => {
             choices: ['Engineer', 'Intern', 'Finish building the team']
         }
     ])
+
+    // if (answer === Engineer) {
+    //     addEngineer();
+    // }
+    //     else if (answer === Intern) {
+    //         addIntern();
+    //     }
+    //     else if (answer === 'Finish building the team') {
+    //         renderTeam();
+            
+    //     }
+
+    //I switched the if statement to a switch statement to be comfortable with using it
+    //switch statement for getting team members information once option is selected in inquirer prompt
+switch (memberType) {
+    case 'Engineer': 
+        addEngineer();
+        break;
+
+    case 'Intern':
+        addIntern();
+        break;
+    
+    case 'Finish building the team':
+        renderTeam();
+        break;
 }
+}
+
+const addEngineer = () => {}
+
+const addIntern = () => {}
+
+const renderTeam = () => {}
+
