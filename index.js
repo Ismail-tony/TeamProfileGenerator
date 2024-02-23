@@ -15,7 +15,7 @@ const render = require("./src/page-template.js");
 
 const teamMembers = [];
 
-const addManager = () => { //Gets Manager's Information
+function addManager() { //Gets Manager's Information
     inquirer.prompt([
         {
             type: "input",
@@ -46,7 +46,7 @@ const addManager = () => { //Gets Manager's Information
     })
 }
 
-const addTeamMember = () => {
+function addTeamMember() {
     inquirer.prompt([
         {
             type: 'list',
@@ -84,9 +84,72 @@ switch (memberType) {
 }
 }
 
-const addEngineer = () => {}
+function addEngineer() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the engineer's name?",
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the engineer's id?",
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the engineer's email?",
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is the team engineer's github username?"
+        },
+    ])
+    
+    .then((answers) => {
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.officeNumber); 
+        teamMembers.push(engineer); //pushes manager into teamMembers array
+        addTeamMember();
+    })
+}
 
-const addIntern = () => {}
+function addIntern () {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is the intern's name?",
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is the intern's id?",
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is the intern's email?",
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "What is the name of the school the intern attends "
+        },
+    ])
+    
+    .then((answers) => {
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.officeNumber); 
+        teamMembers.push(intern); //pushes manager into teamMembers array
+        addTeamMember();
+    })
+}
 
-const renderTeam = () => {}
+function renderTeam () {}
 
+const init = () => {
+    addManager();
+}
+
+init();
