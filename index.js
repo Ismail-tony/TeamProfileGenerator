@@ -9,6 +9,8 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
+const { ifError } = require("assert");
+const { log } = require("console");
 
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
@@ -115,7 +117,7 @@ function addEngineer() {
     })
 }
 
-function addIntern () {
+function addIntern() {
     inquirer.prompt([
         {
             type: "input",
@@ -146,7 +148,12 @@ function addIntern () {
     })
 }
 
-function renderTeam () {}
+function renderTeam() {
+    const html = render(teamMembers);
+    fs.writeFile(outputPath, html, (err) =>{
+        err ? console.error(err) : console.log('Team HTML has been created!');
+    })
+}
 
 const init = () => {
     addManager();
