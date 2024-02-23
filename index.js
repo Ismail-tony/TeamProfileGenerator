@@ -17,7 +17,7 @@ const { log } = require("console");
 
 const teamMembers = [];
 
-function addManager() { //Gets Manager's Information
+function getManagerInfo() { //Gets Manager's Information
     inquirer.prompt([
         {
             type: "input",
@@ -45,8 +45,8 @@ function addManager() { //Gets Manager's Information
         const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber); 
         teamMembers.push(manager); //pushes manager into teamMembers array
         addTeamMember();
-    })
-}
+    });
+};
 
 function addTeamMember() {
     inquirer.prompt([
@@ -71,20 +71,23 @@ function addTeamMember() {
 
     //I switched the if statement to a switch statement to be comfortable with using it
     //switch statement for getting team members information once option is selected in inquirer prompt
-switch (memberType) {
-    case 'Engineer': 
-        addEngineer();
-        break;
+    .then((answers) => {
+        switch (answers.memberType) {
+            case 'Engineer': 
+                addEngineer();
+                break;
+        
+            case 'Intern':
+                addIntern();
+                break;
+            
+            case 'Finish building the team':
+                renderTeam();
+                break;
+        };
+    })
 
-    case 'Intern':
-        addIntern();
-        break;
-    
-    case 'Finish building the team':
-        renderTeam();
-        break;
-}
-}
+};
 
 function addEngineer() {
     inquirer.prompt([
@@ -111,11 +114,11 @@ function addEngineer() {
     ])
     
     .then((answers) => {
-        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.officeNumber); 
-        teamMembers.push(engineer); //pushes manager into teamMembers array
+        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github); 
+        teamMembers.push(engineer); //pushes engineer into teamMembers array
         addTeamMember();
-    })
-}
+    });
+};
 
 function addIntern() {
     inquirer.prompt([
@@ -142,21 +145,26 @@ function addIntern() {
     ])
     
     .then((answers) => {
-        const intern = new Intern(answers.name, answers.id, answers.email, answers.officeNumber); 
-        teamMembers.push(intern); //pushes manager into teamMembers array
+        const intern = new Intern(answers.name, answers.id, answers.email, answers.school); 
+        teamMembers.push(intern); //pushes intern into teamMembers array
         addTeamMember();
-    })
-}
+    });
+};
 
-function renderTeam() {
+function renderTeam() { //creates the html file
     const html = render(teamMembers);
+
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR)
+    };
+    
     fs.writeFile(outputPath, html, (err) =>{
         err ? console.error(err) : console.log('Team HTML has been created!');
-    })
-}
+    });
+};
 
-const init = () => {
-    addManager();
-}
+const init = () => { //initialise getManagerInfo when page loads.
+    getManagerInfo();
+};
 
 init();
