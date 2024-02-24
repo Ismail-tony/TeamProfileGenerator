@@ -12,17 +12,34 @@
 
 [Usage](#usage)
 
-[License](#license)
+[Test](#test)
 
 [Contribution](#contribution)
 
+[License](#license)
+
+
+
 ## Installation
-This project uses jest in the testing phase to complete the checkmarks needed to be completed for this project. Inquirer was also used for the question prompt for each cards.
+To run this application, the inquirer need to be installed using the node command:
+
+    npm i inquirer
+
+once installed, to generate the data assigned to each cards the node command:
+
+    node index.js
 
 ## Usage
-![alt text](Asset/image.png)
+This project uses jest in the testing phase to complete the checkmarks needed to be completed for this project. Inquirer was also used for the question prompt for each cards.
 
-## License
+## Test
+![alt text](Asset/image.png)
+[Team Profile](output/team.html)
 
 ## Contribution
+[ES6 Javascript](https://www.youtube.com/watch?v=NCwa_xi0Uuc&t=1171s)
+
+## License
+[MIT](LICENSE)
+
 
